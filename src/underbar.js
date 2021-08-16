@@ -56,6 +56,7 @@
     if (Array.isArray(collection)) {
       for (var i = 0; i < collection.length; i++) {
         iterator(collection[i], i, collection);
+
       }
     } else if (typeof collection === 'object') {
       for (var key in collection) {
@@ -74,23 +75,34 @@
     var result = -1;
 
     _.each(array, function(item, index) {
-      if (item === target) {
+      if (item === target && result === -1) {
         result = index;
 
       }
     });
+
 
     return result;
   };
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var passed = [];
+    for (var i = 0; i < collection.length; i++) {
+      if (test(collection[i]) === true ) {
+        passed.push(collection[i]);
+      }
+    }
+    return passed;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    _.filer(collection, function(item, index) {
+
+    });
   };
 
   // Produce a duplicate-free version of the array.
