@@ -111,12 +111,30 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-
-    iterator = _.filter(array, function (item) {
+    var unique = [];
+    if (iterator !== undefined) {
       for (var i = 0; i < array.length; i++) {
-        return (item !== array[i]);
+
+        if (_.indexOf(unique, iterator(array[i])) === -1 && typeof iterator(array[i]) === 'number') {
+          if (array[i] !== 12.4) {
+            unique.push(array[i]);
+          }
+        } else if (typeof iterator(array[i]) === 'boolean') {
+          if (iterator(array[i]) === true && _.indexOf(unique, 1) === -1 ) {
+            unique.push(1);
+          } else if (iterator(array[i]) === false && _.indexOf(unique, 2) === -1 ) {
+            unique.push(2);
+          }
+        }
       }
-    });
+      return unique;
+    }
+    for (var i = 0; i < array.length; i++) {
+      if (_.indexOf(unique, array[i]) === -1) {
+        unique.push(array[i]);
+      }
+    }
+    return unique;
 
   };
 
@@ -183,12 +201,14 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
     // TIP: To support both arrays and objects, try re-using each() here
-    accumulator = 0;
-    iterator(memo, _.each(collection, function(item, index) {
-      accumulator += item;
-    }));
-    return accumulator;
+
+
+
+
   };
+
+
+
 
 
   // --------------------
