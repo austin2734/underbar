@@ -202,6 +202,30 @@
   _.reduce = function(collection, iterator, accumulator) {
     // TIP: To support both arrays and objects, try re-using each() here
 
+    // input - array or object
+    // output - sum of the array elements or object keys
+    // constrains - Unknown
+    // may not be third agruement for accumulator
+
+
+    var falsy = [false, 0, -0, '', null];
+    if (_.indexOf(falsy, accumulator) !== -1) {
+      return 0;
+    }
+
+
+
+
+    _.each(collection, function(item) {
+
+      accumulator = iterator(accumulator || item, item);
+
+    });
+
+
+    return accumulator;
+
+
 
 
 
