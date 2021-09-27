@@ -98,8 +98,18 @@
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
+    var pass = [];
+    var doNotPass = [];
+    pass = _.filter(collection, test);
+    for (var i = 0; i < collection.length; i ++) {
+      if (_.indexOf( pass, collection[i]) === -1) {
+        doNotPass.push(collection[i]);
+      }
+    }
+    return doNotPass;
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    /*
     var passed = [];
     for (var i = 0; i < collection.length; i++) {
       if (test(collection[i]) !== true ) {
@@ -107,12 +117,13 @@
       }
     }
     return passed;
+    */
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
     var unique = [];
-    if (iterator !== undefined) {
+    if (iterator) {
       for (var i = 0; i < array.length; i++) {
 
         if (_.indexOf(unique, iterator(array[i])) === -1 && typeof iterator(array[i]) === 'number') {
@@ -484,6 +495,11 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    return _.map (collection, function (item) {
+      var method = (typeof functionOrKey === 'string' ? item[functionOrKey] : functionOrKey);
+      return method.apply(item, args);
+    });
+
   };
 
   // Sort the object's values by a criterion produced by an iterator.
@@ -491,6 +507,12 @@
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    var result = [];
+    _.each(collection, function () {
+      _.each(item, function () {
+
+      });
+    });
   };
 
   // Zip together two or more arrays with elements of the same index
